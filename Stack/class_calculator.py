@@ -54,78 +54,65 @@ Enter arguments : 4 POP
 class calculator:
     def __init__(self):
         self.list = []
+        self.operator = ['+', '-', '*', '/', 'DUP', 'PSH', 'POP']
         self.total = 0
 
     def push(self,value):
         return self.list.append(value)
     
     def pop(self):
+        if not self.list:
+            return 0
         return self.list.pop()
      
     def peek(self):
+        if not self.list:
+            return 0
         return self.list[-1]
 
     def run(self,arg):
         for i in arg:
-            if len(self.list) > 0:
-                p = self.peek()
-                if p == '+':
-                    self.pop()
-                    a = self.peek()
-                    self.pop()
-                    b = self.peek()
-                    self.pop()
-                    c = int(a)+int(b)
-                    self.push(c)
-                    
-                elif p == '-':
-                    self.pop()
-                    a = self.peek()
-                    self.pop()
-                    b = self.peek()
-                    self.pop()
-                    c = int(a) - int(b)
-                    self.push(c)
-                elif p == '*':
-                    self.pop()
-                    a = self.peek()
-                    self.pop()
-                    b = self.peek()
-                    self.pop()
-                    c = int(a) * int(b)
-                    self.push(c)
-                elif p == '/':
-                    self.pop()
-                    a = self.peek()
-                    self.pop()
-                    b = self.peek()
-                    self.pop()
-                    c = int(a) / int(b)
-                    self.push(c)
-                elif p == 'DUP':
-                    self.pop()
-                    before_DUP = self.peek()
-                    self.push(before_DUP)
-                elif p == 'POP':
-                    self.pop()
-                    self.pop()
-                elif p == 'PSH':
-                    pass
-            self.push(i)
-            
-    def getValue(self):
-        for i in self.list:
-            if not self.list:
-                self.total = 0
-            elif type(i) == str:
-                if i.isalpha() == True:
-                    print("Invalid instruction : "+self.list[0])
-                else:
-                    change = int(i)
-                    self.total = change
+            if i.isnumeric():
+                self.push(i)
+            elif i not in self.operator:
+                self.total = f'Invalid instruction: {i}'
+                return 
             else:
-                self.total = i
-        
+                if i == '+':
+                    b = self.pop()          
+                    a = self.pop()
+                    if a.isalpha() == False and b.isalpha() == False:
+                        result_sum = int(a) + int(b)
+                        self.push(str(result_sum))
+                elif i == '-':
+                    d = self.pop() 
+                    c = self.pop()
+                    result_min = int(d) - int(c)
+                    self.push(str(result_min))
+                
+                elif i == '*':
+                    f = self.pop()
+                    e = self.pop()
+                    result_multi = int(f)*int(e)
+                    self.push(str(result_multi))
+                  
+                elif i == '/':
+                    j = self.pop()
+                    i = self.pop()
+                    result_div = int(j) / int(i)
+                    self.push(str(int(result_div)))
+                elif i == 'DUP':
+                    top = self.peek()
+                    dup = top
+                    self.push(dup)
+                elif i == 'POP':
+                    top = self.pop()
+                    
+                elif i == 'PSH':
+                    pass
+        self.total = self.peek()
+            
+    def getValue(self):    
         return self.total
 
 
