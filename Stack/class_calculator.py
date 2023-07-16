@@ -54,7 +54,6 @@ Enter arguments : 4 POP
 class calculator:
     def __init__(self):
         self.list = []
-        self.operator = ['+', '-', '*', '/', 'DUP', 'PSH', 'POP']
         self.total = 0
 
     def push(self,value):
@@ -63,72 +62,67 @@ class calculator:
     def pop(self):
         return self.list.pop()
      
-    def top(self):
+    def peek(self):
         return self.list[-1]
 
     def run(self,arg):
         for i in arg:
+            if len(self.list) > 0:
+                p = self.peek()
+                if p == '+':
+                    self.pop()
+                    a = self.peek()
+                    self.pop()
+                    b = self.peek()
+                    self.pop()
+                    c = int(a)+int(b)
+                    self.push(c)
+                    
+                elif p == '-':
+                    self.pop()
+                    a = self.peek()
+                    self.pop()
+                    b = self.peek()
+                    self.pop()
+                    c = int(a) - int(b)
+                    self.push(c)
+                elif p == '*':
+                    self.pop()
+                    a = self.peek()
+                    self.pop()
+                    b = self.peek()
+                    self.pop()
+                    c = int(a) * int(b)
+                    self.push(c)
+                elif p == '/':
+                    self.pop()
+                    a = self.peek()
+                    self.pop()
+                    b = self.peek()
+                    self.pop()
+                    c = int(a) / int(b)
+                    self.push(c)
+                elif p == 'DUP':
+                    self.pop()
+                    before_DUP = self.peek()
+                    self.push(before_DUP)
+                elif p == 'POP':
+                    self.pop()
+                    self.pop()
+                elif p == 'PSH':
+                    pass
             self.push(i)
-            if i == '+':
-                top = self.pop()       #pop sign  (+,-, *, /, DUP, POP, PSH)
-                #print(top)
-                b = self.pop()          #number before top(+)
-                a = self.pop()
-                if a.isalpha() == False and b.isalpha() == False:
-                    result_sum = int(a) + int(b)
-                    self.push(result_sum)
-            elif i == '-':
-                top = self.pop()
-                #print(top)
-                d = self.pop() #number before top(-)
-                c = self.pop()
-                result_min = int(d) - int(c)
-                #print(result_min)
-                self.push(result_min)
-                #self.total -= result_min
-            elif i == '*':
-                top = self.pop()
-                f = self.pop()
-                e = self.pop()
-                result_multi = int(f)*int(e)
-                #print(result_multi)
-                self.push(result_multi)
-                #self.total *= result_multi
-            elif i == '/':
-                top = self.pop()
-                j = self.pop()
-                i = self.pop()
-                result_div = int(j) / int(i)
-                #print(result_div)
-                self.push(int(result_div))
-                self.total /=  int(result_div)
-            elif i == 'DUP':
-                top = self.pop()
-                before_top = self.pop()
-                dup = before_top
-                self.push(before_top)
-                self.push(dup)
-            elif i == 'POP':
-                if i == self.list[0]:
-                    return 0
-                top = self.pop()
-                before_top = self.pop()
-            elif i == 'PSH':
-                #self.push(i)
-                pass
             
     def getValue(self):
         for i in self.list:
             if not self.list:
                 self.total = 0
             elif type(i) == str:
-                if i.isalpha() == True :
-                    
-                    return str("Invalid instruction: "+i)
+                if i.isalpha() == True:
+                    print("Invalid instruction : "+self.list[0])
                 else:
                     change = int(i)
                     self.total = change
-
             else:
                 self.total = i
         
@@ -141,4 +135,3 @@ machine = calculator()
 
 machine.run(arg)
 print(machine.getValue())
-
