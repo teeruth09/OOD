@@ -69,30 +69,42 @@ class Queue:
 
     def push(self, value):
         self.list.append(value)
+        #return self.list[value]
 
     def pop(self):
-        return self.list.pop()
-    
-    def peek(self):
         if not self.list:
             return -1
-        return self.list[-1]
+        return f'Pop {self.list.pop(0)} size in queue is {self.size()}'
+    
+    def bottom(self):
+        return self.list[0]
     
     def isEmpty(self):
-        return not self.list
+        if not self.list:
+            return f'Empty'
+        else:
+            return f'Number in Queue is :  {self.list}'
+
     
     def size(self):
         return len(self.list)
     
 que1 = Queue()
 a = input("Enter Input : ").split(",")
+index = 0
 
 for i in a:
     if i.split()[0] == 'E':
-        que1.push(int(i.split()[1]))
-    elif i == 'D':
-        pop = que1.pop(0)
-        print(f'Pop {pop} size in queue is {que1.size()}')
+        que1.push(i.split()[1])
+        index +=1
+        print(f'Add {i.split()[1]} index is {index-1}')
 
-for i in range(que1.size()):
-    print(f'Add {que1.list[i]} index is {i}')
+    elif i == 'D':
+        pop = que1.pop()
+        index -= 1
+        print(pop)
+
+    if index < 0:
+        index = 0
+
+print(que1.isEmpty())
