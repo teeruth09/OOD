@@ -5,7 +5,7 @@
 - [x] Ch3 Stack
 - [x] Ch4 Queue
 - [x] Ch5 Linked List
-- [ ] Ch6 Recursion
+- [x] Ch6 Recursion
 - [ ] Ch7 Tree (Binary Search Tree)
 - [ ] Ch8 Tree2 (AML)
 - [ ] Ch9 Sorting
