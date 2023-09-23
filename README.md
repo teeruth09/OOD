@@ -6,8 +6,8 @@
 - [x] Ch4 Queue
 - [x] Ch5 Linked List
 - [x] Ch6 Recursion
-- [ ] Ch7 Tree (Binary Search Tree)
-- [ ] Ch8 Tree2 (AML)
+- [x] Ch7 Tree (Binary Search Tree)
+- [x] Ch8 Tree2 (AML)
 - [ ] Ch9 Sorting
 - [ ] Ch10 Searching
 - [ ] Ch11 Graph
